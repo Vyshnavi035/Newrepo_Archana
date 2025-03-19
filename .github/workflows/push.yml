@@ -102,6 +102,7 @@ jobs:
               done < "line_number_mapping_${file//\//_}.txt"
               echo "    }" >> "$temp_file"
               echo "}" >> "$temp_file"
+              cat $temp_file
             elif [[ "$file" == *.lwc ]]; then
               echo "<template>" > "$temp_file"
               echo "    <!-- Extracted changed lines -->" >> "$temp_file"
