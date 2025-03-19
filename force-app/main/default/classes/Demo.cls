@@ -30,8 +30,5 @@ global class Demo {  // Violates AvoidGlobalModifier
         // Violates ApexSOQLInjection (Unsafe SOQL query)
         String query = 'SELECT Id, Name FROM Account WHERE Name LIKE \'%' + userInput + '%\'';
         List<Account> accounts = Database.query(query);
-       System.debug(accounts);
-       //Test
-       System.debug('Test');
     }
 }
