@@ -32,6 +32,6 @@ global class Demo {  // Violates AvoidGlobalModifier
         List<Account> accounts = Database.query(query);
        System.debug(accounts);
        //Test
-       System.debug('Test');
+       System.debug('Test1');
     }
 }
