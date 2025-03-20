@@ -1,0 +1,34 @@
+name: Deploy Metadata to Target Org
+
+on:
+  push:
+    branches:
+      - main  # Triggers on push to main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Install Salesforce CLI
+      run: |
+        npm install -g @salesforce/cli
+        sf --version
+
+    - name: Authenticate Source Org
+      run: echo ${{ secrets.SF_SOURCE_ORG_AUTH_URL }} | sf org login sfdx-url --set-default --alias sourceOrg
+
+    - name: Authenticate Target Org
+      run: echo ${{ secrets.SF_TARGET_ORG_AUTH_URL }} | sf org login sfdx-url --set-default --alias targetOrg
+
+    - name: Retrieve Metadata from Source Org
+      run: |
+        mkdir mdapi_source
+        sf project retrieve start --metadata ApexClass,ApexTrigger --target-org sourceOrg --output-dir mdapi_source
+
+    - name: Deploy Metadata to Target Org
+      run: |
+        sf project deploy start --metadata-dir mdapi_source --target-org targetOrg --wait 10 --test-level NoTestRun
