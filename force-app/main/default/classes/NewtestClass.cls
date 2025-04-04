@@ -1,5 +1,5 @@
 public class NewtestClass {
     public newtest() {
-        return 'Adding this new test class to create delta for testing workflow';
+        return 'Adding this new test class to create delta for testing master branch to production org deployment workflow';
     }
 }
